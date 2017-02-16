@@ -43,8 +43,11 @@ sudo apt-get update
 sudo apt-get dist-upgrade
 sudo apt-get upgrade
 
-sudo apt-get install tmux vim bash-completion irssi mutt htop perl python curl wget lynx manpages-fr git rpi-update raspi-config exuberant-ctags tree
+sudo apt-get install tmux vim bash-completion irssi mutt htop perl python curl wget w3m manpages-fr git rpi-update raspi-config exuberant-ctags tree
 finger
+
+sudo vim /etc/ssh/sshd_config
+PasswordAuthentication no 
 
 sudo raspi-config
 	1
