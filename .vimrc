@@ -5,6 +5,42 @@ set nocompatible
 syntax on
 filetype plugin indent on
 
+" let vimplug_exists=expand('~\AppData\Local\nvim\autoload\plug.vim')
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'edkolev/tmuxline.vim'
+Plug 'edkolev/promptline.vim'
+
+call plug#end()
+
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
+""" NERDTREE
+let g:NERDTreeWinPos = "right"
+let NERDTreeShowHidden=1
+let g:NERDTreeWinSize=35
+map <leader>nn :NERDTreeToggle<cr>
+
+colorscheme PaperColor
+
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ }
+
+let g:tmuxline_powerline_separators = 0
+" :Tmuxline lightline full
+" :TmuxlineSnapshot ~/.tmux.line
+
+let g:promptline_powerline_symbols = 0
+" :PromptlineSnapshot! ~/.bashrc.prompt lightline clear
+
 """"""""""""""""""""""""""""""""""
 " BORING
 """"""""""""""""""""""""""""""""""
@@ -138,39 +174,3 @@ command! MakeTags !ctags -R .
 " - ^n for anything making hit
 "   THEN you can use ^n and ^p to navigate
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                     PLUGINS
-""" PATHOGEN
-execute pathogen#infect()
-colorscheme solarized
-
-""" AIRLINE
-let g:airline_powerline_fonts = 1
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_symbols.space = "\ua0"
-
-""" AIRLINE THEME
-let g:airline_theme='solarized'
-set laststatus=2
-
-""" TMUXLINE
-let g:airline#extensions#tmuxline#enabled = 0
-" :Tmuxline airline crosshair
-
-""" CTRLP.VIM
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-
-""" NERDTREE
-let g:NERDTreeWinPos = "right"
-let NERDTreeShowHidden=1
-let g:NERDTreeWinSize=35
-map <leader>nn :NERDTreeToggle<cr>
-
-""" SYNTAXIC
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
