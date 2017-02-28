@@ -1,13 +1,21 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                   CONFIGURATION
-
+"                            GENERAL CONFIGURATION
 set nocompatible
 syntax on
 filetype plugin indent on
 
-" let vimplug_exists=expand('~\AppData\Local\nvim\autoload\plug.vim')
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+let mapleader = ","
+let g:mapleader = ","
 
-call plug#begin('~/.vim/plugged')
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                   PLUGINS
+if has('win32')
+    call plug#begin('~/vimfiles/plugged')
+else
+	call plug#begin('~/.vim/plugged')
+endif
 
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
@@ -16,20 +24,40 @@ Plug 'scrooloose/nerdtree'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'edkolev/tmuxline.vim'
 Plug 'edkolev/promptline.vim'
+Plug 'moll/vim-bbye'
+Plug 'tpope/vim-fugitive'
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-surround'
+Plug 'ctrlpvim/ctrlp.vim'
 
 call plug#end()
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                              PLUGINS CONFIGURATION
+
+""""""""""""""""""""""""""""""""""
+" GOYO / LIMELIGHT
+""""""""""""""""""""""""""""""""""
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
-""" NERDTREE
+""""""""""""""""""""""""""""""""""
+" BBYE
+""""""""""""""""""""""""""""""""""
+map <leader>c :Bdelete<cr>
+
+""""""""""""""""""""""""""""""""""
+" NERDTREE
+""""""""""""""""""""""""""""""""""
 let g:NERDTreeWinPos = "right"
 let NERDTreeShowHidden=1
 let g:NERDTreeWinSize=35
 map <leader>nn :NERDTreeToggle<cr>
+set guioptions-=L
 
-colorscheme PaperColor
-
+""""""""""""""""""""""""""""""""""
+" * LINES
+""""""""""""""""""""""""""""""""""
 let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ }
@@ -40,6 +68,36 @@ let g:tmuxline_powerline_separators = 0
 
 let g:promptline_powerline_symbols = 0
 " :PromptlineSnapshot! ~/.bashrc.prompt lightline clear
+
+""""""""""""""""""""""""""""""""""
+" SYNTAXIC
+""""""""""""""""""""""""""""""""""
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+""""""""""""""""""""""""""""""""""
+" CTRLP
+""""""""""""""""""""""""""""""""""
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                              VANILLIA CONFIGURATION
+
+""""""""""""""""""""""""""""""""""
+" GVIM
+""""""""""""""""""""""""""""""""""
+if has('gui_running')
+	set guifont=Inconsolata:h12:cANSI:qDRAFT
+	set guioptions=egmt
+	colorscheme base16-google-dark
+endif
 
 """"""""""""""""""""""""""""""""""
 " BORING
@@ -53,14 +111,6 @@ set noerrorbells
 set novisualbell
 set t_vb=
 set tm=500
-
-""""""""""""""""""""""""""""""""""
-" KEYS BINDING
-""""""""""""""""""""""""""""""""""
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
-let mapleader = ","
-let g:mapleader = ","
 
 """"""""""""""""""""""""""""""""""
 " ALIAS
@@ -96,6 +146,7 @@ set laststatus=2
 set relativenumber
 set number
 set foldcolumn=1
+set nofoldenable
 
 """"""""""""""""""""""""""""""""""
 " FILES ENCODING
@@ -163,6 +214,9 @@ set wildmenu
 " :ls to list buffers
 " :b to switch to buffer with a file name <tab> and wildcard included.
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                           EXTERNAL CONFIGURATION
 command! MakeTags !ctags -R .
 " ^] to jump to tag under cursor
 " g^] for ambigous tags
