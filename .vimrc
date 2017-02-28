@@ -14,7 +14,7 @@ let g:mapleader = ","
 if has('win32')
     call plug#begin('~/vimfiles/plugged')
 else
-	call plug#begin('~/.vim/plugged')
+    call plug#begin('~/.vim/plugged')
 endif
 
 Plug 'junegunn/goyo.vim'
@@ -29,6 +29,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-surround'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'altercation/vim-colors-solarized'
 
 call plug#end()
 
@@ -96,7 +97,6 @@ let g:ctrlp_cmd = 'CtrlP'
 if has('gui_running')
 	set guifont=Inconsolata:h12:cANSI:qDRAFT
 	set guioptions=egmt
-	colorscheme base16-google-dark
 endif
 
 """"""""""""""""""""""""""""""""""
@@ -132,6 +132,8 @@ autocmd! bufwritepost vimrc source ~/.vimrc
 """"""""""""""""""""""""""""""""""
 set t_Co=256
 set background=dark
+let g:solarized_termcolors=256
+colorscheme solarized
 
 """"""""""""""""""""""""""""""""""
 " COMMAND BAR
