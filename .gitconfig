@@ -1,0 +1,7 @@
+[user]
+	name = xxxxxxxx
+	email = xxxxxxxxx
+[core]
+	editor = vim
+	longpaths = true
+	autocrlf = input
