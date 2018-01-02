@@ -20,9 +20,3 @@ fi
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
-
-# Add golang support
-export GOROOT=/opt/go
-export PATH=$PATH:$GOROOT/bin
-export GOPATH=$HOME/workspace
-export PATH=$PATH:$GOPATH/bin
