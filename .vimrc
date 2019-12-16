@@ -32,13 +32,8 @@ map <silent> <leader><CR> :noh<CR>
 
 " ******************************************************************************
 "                             FAST CONFIGURATION EDITION
-if has('win32')
-  map <leader>e :e! $HOME/_vimrc<CR>
-	autocmd! bufwritepost _vimrc source %
-else
-  map <leader>e :e! $HOME/.vimrc<CR>
-	autocmd! bufwritepost .vimrc source %
-endif
+map <leader>e :e! $HOME/.vimrc<CR>
+autocmd! bufwritepost .vimrc source %
 
 " ******************************************************************************
 "                                     BORING
@@ -60,14 +55,7 @@ set nrformats-=octal
 " ******************************************************************************
 "                                     COLORS
 " General colors
-set term=xterm
-set t_Co=16
 set background=dark
-" colo base16-monokai
-
-" Mark 80 and 120 lines
-highlight ColorColumn ctermbg=DarkGray guibg=#2c2d27
-let &colorcolumn="80,".join(range(120,999),",")
 
 " ******************************************************************************
 "                                  COMMAND BAR
@@ -184,35 +172,12 @@ hi User5 ctermfg=Black ctermbg=Gray
 " - ^n for anything making hit
 "   THEN you can use ^n and ^p to navigate
 
-" ******************************************************************************
-"                                       GVIM
-if has('gui_running')
-  set guifont=Consolas:h10:cANSI:qDRAFT
-  set guioptions=egt
-  set guioptions-=r
-  set guioptions-=l
-  set guioptions-=b
-  set guioptions-=m  "remove menu bar
-  set guioptions-=T  "remove toolbar
-  set guioptions-=r  "remove right-hand scroll bar
-  set guioptions-=L  "remove left-hand scroll bar
-  hi User1 guifg=#eea040 guibg=#222222
-  hi User2 guifg=#dd3333 guibg=#222222
-  hi User3 guifg=#ff66ff guibg=#222222
-  hi User4 guifg=#a0ee40 guibg=#222222
-  hi User5 guifg=#eeee40 guibg=#222222
-endif
-
 " ==============================================================================
 "                                   PLUGINS
 " ==============================================================================
 
-" if has('win32')
-"   call plug#begin('~/vimfiles/plugged')
-" else
-"   call plug#begin('~/.vim/plugged')
-" endif
-" 
+call plug#begin('~/.vim/plugged')
+
 " Plug 'junegunn/goyo.vim'
 " Plug 'junegunn/limelight.vim'
 " 
@@ -236,7 +201,10 @@ endif
 " Plug 'garbas/vim-snipmate'
 " Plug 'honza/vim-snippets'
 " 
-" call plug#end()
+" Plug 'racer-rust/vim-racer'
+" Plug 'rust-lang/rust.vim'
+
+call plug#end()
 
 " ==============================================================================
 "                              PLUGINS CONFIGURATION
@@ -276,8 +244,8 @@ endif
 " ******************************************************************************
 "                                        LINES
 "let g:lightline = {
-""  \ 'colorscheme': 'wombat',
-""  \ }
+"  \ 'colorscheme': 'wombat',
+"  \ }
 
 "let g:lightline#bufferline#show_number  = 1
 "let g:lightline#bufferline#shorten_path = 0
@@ -302,4 +270,3 @@ endif
 "                                       CTRLP
 "let g:ctrlp_map = '<c-p>'
 "let g:ctrlp_cmd = 'CtrlP'
-

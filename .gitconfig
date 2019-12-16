@@ -1,7 +1,22 @@
 [user]
-	name = xxxxxxxx
-	email = xxxxxxxxx
+    email = user_email
+	name = user_name
 [core]
-	editor = vim
-	longpaths = true
 	autocrlf = input
+	editor = vim
+	ignorecase = false        
+	longpaths = true
+[http]
+    proxy = http://proxy_username:proxy_password@proxy_url:proxy_port
+ 	sslVerify = false
+[remote "origin"]
+	prune = true
+	tagOpt = --tags
+[merge]
+    ff = false                   
+[pull]
+    ff = only                      
+[push]
+    default = simple  
+[credential]
+	helper = store

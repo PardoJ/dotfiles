@@ -37,13 +37,13 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+    xterm-color|*-256color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-force_color_prompt=yes
+#force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -57,7 +57,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w \$\[\033[00m\] '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -80,15 +80,15 @@ if [ -x /usr/bin/dircolors ]; then
     #alias vdir='vdir --color=auto'
 
     alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+    #alias fgrep='fgrep --color=auto'
+    #alias egrep='egrep --color=auto'
 fi
 
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-alias ll='ls -al'
+alias ll='ls -all'
 #alias la='ls -A'
 #alias l='ls -CF'
 
@@ -110,4 +110,27 @@ if ! shopt -oq posix; then
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
   fi
+fi
+
+if [ ! -z "$SSH_TTY" ]; then
+    # We logged in via SSH
+
+    # if ssh auth variable is missing
+    if [ -z "$SSH_AUTH_SOCK" ]; then
+        export SSH_AUTH_SOCK="$HOME/.ssh/ssh_auth_sock"
+    fi
+
+    # if socket is available create the new auth session
+    if [ ! -S "$SSH_AUTH_SOCK" ]; then
+        `ssh-agent -a $SSH_AUTH_SOCK` > /dev/null 2>&1
+        echo $SSH_AGENT_PID > $HOME/.ssh/ssh_auth_pid
+    fi
+
+    # if agent isn't defined, recreate it from pid file
+    if [ -z $SSH_AGENT_PID ]; then
+        export SSH_AGENT_PID=`cat $HOME/.ssh/ssh_auth_pid`
+    fi
+
+    # Add all default keys to ssh auth
+    ssh-add 2>/dev/null
 fi
